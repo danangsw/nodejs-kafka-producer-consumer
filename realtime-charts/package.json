@@ -1,0 +1,46 @@
+{
+  "name": "realtime-charts",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "apollo-boost": "^0.4.9",
+    "apollo-link-ws": "^1.0.20",
+    "chart.js": "^3.5.1",
+    "graphql": "^15.5.2",
+    "moment": "^2.29.1",
+    "react": "^17.0.2",
+    "react-apollo": "^3.1.5",
+    "react-chartjs-2": "^3.0.4",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "subscriptions-transport-ws": "^0.9.19",
+    "web-vitals": "^1.1.2"
+  },
+  "scripts": {
+    "start:fe": "react-scripts start",
+    "build:fe": "react-scripts build",
+    "test:fe": "react-scripts test",
+    "eject:fe": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

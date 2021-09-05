@@ -1,5 +1,6 @@
 version: "3"
 services:
+  #kafka & zookeeper services
   zookeeper:
     image: 'bitnami/zookeeper:latest'
     container_name: 'zookeeper'
@@ -20,3 +21,29 @@ services:
       - ALLOW_PLAINTEXT_LISTENER=yes
     depends_on:
       - zookeeper
+  #realtime charts graphql postgres
+  timescale:
+    container_name: 'postgres-timescaledb'
+    image: timescale/timescaledb:latest-pg12
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgrespass
+    volumes:
+    - db_data:/var/lib/postgresql/data
+  graphql-engine:
+    container_name: 'graphql-engine'
+    image: hasura/graphql-engine:latest
+    ports:
+    - "8282:8080"
+    depends_on:
+    - "timescale"
+    restart: always
+    environment:
+      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:postgrespass@timescale:5432/postgres
+      HASURA_GRAPHQL_ACCESS_KEY: mylongsecretkey
+    command:
+      - graphql-engine
+      - serve
+      - --enable-console
+volumes:
+  db_data:
