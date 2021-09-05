@@ -1,6 +1,6 @@
-const Avro = require('avsc');
+import avro from 'avsc';
 
-const Event = Avro.Type.forSchema({
+const EventType = avro.Type.forSchema({
     type: 'record',
     fields: [
         {
@@ -27,4 +27,4 @@ const Event = Avro.Type.forSchema({
     ],
 });
 
-module.exports = Event;
+module.exports = EventType;

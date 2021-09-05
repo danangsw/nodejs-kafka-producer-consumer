@@ -1,0 +1,20 @@
+mutation mut_appl_order {
+  insert_appl_order(
+    objects:[{
+      id: "abdef001"
+      branch: "Jakarta"
+      product: "MOTOR"
+      quantity: "1"
+      order_date: "2021-09-05T07:27:14.609976+00:00"
+      approval_date: "2021-09-05T07:27:14.609976+00:00"
+      approval_status: "AP"
+    }]
+  ) {
+    returning {
+      quantity
+      recorded_at
+      approval_status
+      id
+    }
+  }
+}

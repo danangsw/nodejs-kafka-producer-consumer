@@ -1,5 +1,5 @@
-const Kafka = require('node-rdkafka');
-const EventType = require('../eventType.js');
+import Kafka from 'node-rdkafka';
+import EventType from '../events/eventType'
 
 console.log('producer is running...');
 
@@ -42,4 +42,4 @@ function generateSimpleId() {
 
 setInterval(() => {
     queueMsg();
-}, 5000);
+}, 1000);
