@@ -1,0 +1,9 @@
+#simple gitignore for nodejs
+
+node_modules
+build
+npm-debug.log
+assets
+.nyc
+.env
+.DS_Store
