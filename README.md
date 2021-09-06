@@ -6,7 +6,7 @@ Real-time chart dengan GraphQL dan Postgre untuk memvisualisasikan data dengan b
 
 Menjalankan `Apache Kafka`, `PostgreSQL` dan `GraphQL Engine` dalam `docker` container. Membuat Producer & Consumer dengan `Node.js` untuk membaca dan menulis event ke dalam stream. Membuat real-time chart dengan mengunakan `ChartJS` bersama dengan abstraksi `ReactJS`-nya 
 
-![Screen Shot 2021-04-20 at 09 56 47](/node-kafka.png)
+![nodejs-kafka-producer-consumer](/node-kafka.png)
 
 ## Prerequisites
 
