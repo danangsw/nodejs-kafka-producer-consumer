@@ -1,6 +1,6 @@
 import avro from 'avsc';
 
-const EventType = avro.Type.forSchema({
+export default avro.Type.forSchema({
     type: 'record',
     fields: [
         {
@@ -17,8 +17,7 @@ const EventType = avro.Type.forSchema({
         },
         {
             name: 'orderDate',
-            type: 'long',
-            logicalType: 'timestamp-millis'
+            type: 'string'
         },
         {
             name: 'id',
@@ -26,5 +25,3 @@ const EventType = avro.Type.forSchema({
         },
     ],
 });
-
-module.exports = EventType;

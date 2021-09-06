@@ -1,5 +1,5 @@
 import Kafka from 'node-rdkafka';
-import EventType from '../events/eventType'
+import EventType from '../events/eventType.js'
 
 console.log('producer is running...');
 
@@ -9,7 +9,9 @@ const stream = Kafka.Producer.createWriteStream({
 
 function queueMsg() {
     var oid = generateSimpleId();
-    var odate = Date.now();
+    //Javascript Date to Postgres-acceptable format
+    //https://gist.github.com/jczaplew/f055788bf851d0840f50
+    var odate = new Date(Date.now()+(1000*60*(-(new Date()).getTimezoneOffset()))).toISOString().replace('T',' ').replace('Z','');
     var obranch = getBranch();
     var oproduct = getProduct();
 

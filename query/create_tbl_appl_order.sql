@@ -34,9 +34,11 @@ CREATE VIEW last_30_min_aproval_rate AS (
 
 CREATE OR REPLACE VIEW last_30_min_approval_rate AS (
   SELECT time_bucket('30 seconds', recorded_at) AS sec_interval, approval_status,
-  (count(*) * 100.0) / sum(count(*)) over(partition by time_bucket('30 seconds', recorded_at)) AS approval_rate
+  round((count(*) * 100.0) / sum(count(*)) over(partition by time_bucket('30 seconds', recorded_at)), 2) AS approval_rate
   FROM appl_order
   WHERE recorded_at > NOW() - interval '30 minutes'
   GROUP BY sec_interval, approval_status
   ORDER BY sec_interval ASC
 );
+
+CREATE OR REPLACE 

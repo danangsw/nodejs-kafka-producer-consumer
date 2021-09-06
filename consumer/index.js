@@ -1,7 +1,7 @@
 console.log('consumer is running...')
 import fetch from 'node-fetch';
 import Kafka from 'node-rdkafka';
-import EventType from '../events/eventType';
+import EventType from '../events/eventType.js';
 
 const consumer = Kafka.KafkaConsumer({
     'group.id': 'kafka',
@@ -17,25 +17,29 @@ consumer.on('ready', () => {
 }).on('data', (data) => {
     console.log(`stream received ${EventType.fromBuffer(data.value)}`);
 
-    saveDataOrder(data.value);
+    saveDataOrder(EventType.fromBuffer(data.value));
 });
 
 function saveDataOrder(order) {
-    var id = order.id;
+    var oid = order.id;
     var branch = order.branch;
     var product = order.product;
     var quantity = order.quantity;
-    var order_date = order.order_date;
-    var approval_date = order.approval_date;
+    var order_date = order.orderDate;
+    //Javascript Date to Postgres-acceptable format
+    //https://gist.github.com/jczaplew/f055788bf851d0840f50
+    var approval_date = new Date(Date.now()+(1000*60*(-(new Date()).getTimezoneOffset()))).toISOString().replace('T',' ').replace('Z','');
     var approval_status = getApproval();
 
-    var mut_query = `mutation mut_appl_order($id:String!, 
+    console.log(order, order_date, approval_date, approval_status)
+
+    var mut_query = `mutation mut_appl_order($oid:String!, 
                      $branch:String!, $product:String!, 
-                     $quantity:numeric!, $order_date: String!, 
-                     $approval_date: String!, $approval_status: String!) {
+                     $quantity:Int!, $order_date: timestamptz!, 
+                     $approval_date: timestamptz!, $approval_status: String!) {
         insert_appl_order(objects: [
             {
-                id: $id, 
+                id: $oid, 
                 branch: $branch, 
                 product: $product, 
                 quantity: $quantity, 
@@ -59,7 +63,7 @@ function saveDataOrder(order) {
             },
             body: JSON.stringify({
                 query: mut_query,
-                variables: {id, branch, product, quantity, order_date, approval_date, approval_status}
+                variables: {oid, branch, product, quantity, order_date, approval_date, approval_status}
             })
         }).then((resp) => resp.json().then((respObj) => console.log(JSON.stringify(respObj, null, 2))));
 }
