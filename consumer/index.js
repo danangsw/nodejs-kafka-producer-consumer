@@ -15,9 +15,10 @@ consumer.on('ready', () => {
     consumer.subscribe(['aplikasi']);
     consumer.consume();
 }).on('data', (data) => {
-    console.log(`stream received ${EventType.fromBuffer(data.value)}`);
+    var datastream = EventType.fromBuffer(data.value);
+    console.log(`stream received ${datastream}`);
 
-    saveDataOrder(EventType.fromBuffer(data.value));
+    saveDataOrder(datastream);
 });
 
 function saveDataOrder(order) {
